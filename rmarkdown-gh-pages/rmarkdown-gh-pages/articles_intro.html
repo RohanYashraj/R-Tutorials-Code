@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Garrett Grolemund" />
+
+<meta name="date" content="2014-07-16" />
+
+<title>Introduction to R Markdown</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<meta name="description" content="Turn your analyses into high quality documents, reports, presentations and dashboards with R Markdown. Use a productive notebook interface to weave together narrative text and code to produce elegantly formatted output. Use multiple languages including R, Python, and SQL. R Markdown supports a reproducible workflow for dozens of static and dynamic output formats including HTML, PDF, MS Word, Beamer, HTML5 slides, Tufte-style handouts, books, dashboards, shiny applications, scientific articles, websites, and more." />
+
+<link rel="icon" type="image/png" href="images/favicon.png" />
+
+<script type="text/javascript" src="js/redirect.js"></script>
+<script type="text/javascript" src="js/rmarkdown.js"></script>
+<script type="text/javascript" src="js/ga.js"></script>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="css/rmarkdown.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div id="rStudioHeader" class="alwaysShrunk">
+  <div class="innards bandContent">
+    <div>
+      <a class="productName" href="index.html">R Markdown</a>
+      <div class="rStudio"><span class="light">from </span> <a href="https://www.rstudio.com/"><div class="logo"></div></a></div>
+    </div>
+
+    <div id="menu">
+      <div id="menuToggler"></div>
+      <div id="menuItems">
+        <a class="menuItem" href="lesson-1.html">Get Started</a>
+        <a class="menuItem" href="gallery.html">Gallery</a>
+        <a class="menuItem" href="formats.html">Formats</a>
+        <a class="menuItem" href="articles.html">Articles</a>
+        <a class="menuItem" href="https://bookdown.org/yihui/rmarkdown/">Book</a>
+        <a class="menuItem" href="docs/">References</a>
+        <a class="menuItem gitHub" href="https://github.com/rstudio/rmarkdown"></a>
+        <a class="menuItem gitHubText" href="https://github.com/rstudio/rmarkdown">Source on GitHub</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style type="text/css">
+#TOC {
+  margin-left: 35px;
+  margin-top: 90px;
+}
+</style>
+
+<script type="text/javascript">
+$(".main-container").removeClass("main-container").removeClass("container-fluid").addClass("footerPushDown");
+</script>
+
+
+<div id="pageContent" class="standardPadding">
+  <div class="articleBandContent">
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Introduction to R Markdown</h1>
+<h4 class="author">Garrett Grolemund</h4>
+<h4 class="date">July 16, 2014</h4>
+
+</div>
+
+
+<p>Interactive documents are a new way to build Shiny apps. An interactive document is an <a href="http://rmarkdown.rstudio.com">R Markdown</a> file that contains Shiny widgets and outputs. You write the report in <a href="http://daringfireball.net/projects/markdown/basics">markdown</a>, and then launch it as an app with the click of a button.</p>
+<p>This article will show you how to write an R Markdown report.</p>
+<p>The companion article, <a href="http://shiny.rstudio.com/articles/interactive-docs.html">Introduction to interactive documents</a>, will show you how to turn an R Markdown report into an interactive document with Shiny components.</p>
+<div id="r-markdown" class="section level2">
+<h2>R Markdown</h2>
+<p>R Markdown is a file format for making dynamic documents with R. An R Markdown document is written in markdown (an easy-to-write plain text format) and contains chunks of embedded R code, like the document below.</p>
+<pre><code>---
+output: html_document
+---
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+&#96``{r}
+summary(cars)
+&#96``
+
+You can also embed plots, for example:
+
+&#96``{r, echo=FALSE}
+plot(cars)
+&#96``
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.</code></pre>
+<p>R Markdown files are designed to be used with the <code>rmarkdown</code> package. <code>rmarkdown</code> comes installed with the RStudio IDE, but you can acquire your own copy of <code>rmarkdown</code> from CRAN with the command</p>
+<pre class="r"><code>install.packages("rmarkdown")</code></pre>
+<p>R Markdown files are the source code for rich, reproducible documents. You can transform an R Markdown file in two ways.</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>knit</strong> - You can <em>knit</em> the file. The <code>rmarkdown</code> package will call the <code>knitr</code> package. <code>knitr</code> will run each chunk of R code in the document and append the results of the code to the document next to the code chunk. This workflow saves time and facilitates reproducible reports.</p>
+<p>Consider how authors typically include graphs (or tables, or numbers) in a report. The author makes the graph, saves it as a file, and then copy and pastes it into the final report. This process relies on manual labor. If the data changes, the author must repeat the entire process to update the graph.</p>
+<p>In the R Markdown paradigm, each report contains the code it needs to make its own graphs, tables, numbers, etc. The author can automatically update the report by re-knitting.</p></li>
+<li><p><strong>convert</strong> - You can <em>convert</em> the file. The <code>rmarkdown</code> package will use the <code>pandoc</code> program to transform the file into a new format. For example, you can convert your .Rmd file into an HTML, PDF, or Microsoft Word file. You can even turn the file into an HTML5 or PDF slideshow. <code>rmarkdown</code> will preserve the text, code results, and formatting contained in your original .Rmd file.</p>
+<p>Conversion lets you do your original work in markdown, which is very easy to use. You can include R code to knit, and you can share your document in a variety of formats.</p></li>
+</ol>
+<p>In practice, authors almost always knit and convert their documents at the same time. In this article, I will use the term <em>render</em> to refer to the two step process of knitting and converting an R Markdown file.</p>
+<p>You can manually render an R Markdown file with <code>rmarkdown::render()</code>. This is what the above document looks like when rendered as a HTML file.</p>
+<p><img src="articles/images/rmd-temp.png" /></p>
+<p>In practice, you do not need to call <code>rmarkdown::render()</code>. You can use a button in the RStudio IDE to render your reprt. R Markdown is heavily <a href="http://shiny.rstudio.com/articles/rmd-integration.html">integrated into the RStudio IDE</a>.</p>
+</div>
+<div id="getting-started" class="section level2">
+<h2>Getting started</h2>
+<p>To create an R Markdown report, open a plain text file and save it with the extension <em>.Rmd</em>. You can open a plain text file in your scripts editor by clicking File &gt; New File &gt; Text File in the RStudio toolbar.</p>
+<p><img src="articles/images/rmd-file.png" /></p>
+<p>Be sure to save the file with the extension <em>.Rmd</em>. The RStudio IDE enables several helpful buttons when you save the file with the .Rmd extension. You can save your file by clicking File &gt; Save in the RStudio toolbar.</p>
+<p><img src="articles/images/rmd-save.png" /></p>
+<p>R Markdown reports rely on three frameworks</p>
+<ol style="list-style-type: decimal">
+<li>markdown for formatted text</li>
+<li><code>knitr</code> for embedded R code</li>
+<li>YAML for render parameters</li>
+</ol>
+<p>The sections below describe each framework.</p>
+</div>
+<div id="markdown-for-formatted-text" class="section level2">
+<h2>Markdown for formatted text</h2>
+<p>.Rmd files are meant to contain text written in <a href="http://daringfireball.net/projects/markdown/basics">markdown</a>. Markdown is a set of conventions for formatting plain text. You can use markdown to indicate</p>
+<ul>
+<li>bold and italic text</li>
+<li>lists</li>
+<li>headers (e.g., section titles)</li>
+<li>hyperlinks</li>
+<li>and much more</li>
+</ul>
+<p>The conventions of markdown are very unobtrusive, which make Markdown files easy to read. The file below uses several of the most useful markdown conventions.</p>
+<pre class="r"><code>
+# Say Hello to markdown
+
+Markdown is an **easy to use** format for writing reports. It resembles what you naturally write every time you compose an email. In fact, you may have already used markdown *without realizing it*. These websites all rely on markdown formatting
+
+* [Github](www.github.com)
+* [StackOverflow](www.stackoverflow.com)
+* [Reddit](www.reddit.com)
+
+</code></pre>
+<p>The file demonstrates how to use markdown to indicate:</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>headers</strong> - Place one or more hashtags at the start of a line that will be a header (or sub-header). For example, <code># Say Hello to markdown</code>. A single hashtag creates a first level header. Two hashtags, <code>##</code>, creates a second level header, and so on.</p></li>
+<li><p><strong>italicized and bold text</strong> - Surround italicized text with asterisks, like this <code>*without realizing it*</code>. Surround bold text with two asterisks, like this <code>**easy to use**</code>.</p></li>
+<li><p><strong>lists</strong> - Group lines into bullet points that begin with asterisks. Leave a blank line before the first bullet, like this</p>
+<pre><code> This is a list
+
+ * item 1
+ * item 2
+ * item 3</code></pre></li>
+<li><p><strong>hyperlinks</strong> - Surround links with brackets, and then provide the link target in parentheses, like this <code>[Github](www.github.com)</code>.</p></li>
+</ol>
+<p>You can learn about more of markdown’s conventions in the <em>Markdown Quick Reference</em> guide, which comes with the RStudio IDE.</p>
+<p>To access the guide, open a <em>.md</em> or <em>.Rmd</em> file in RStudio. Then click the question mark that appears at the top of the scripts pane. Next, select “Markdown Quick Reference”. RStudio will open the <em>Markdown Quick Reference</em> guide in the Help pane.</p>
+<p><img src="articles/images/rmd-ref.png" /></p>
+<div id="rendering" class="section level3">
+<h3>Rendering</h3>
+<p>To transform your markdown file into an HTML, PDF, or Word document, click the “Knit” icon that appears above your file in the scripts editor. A drop down menu will let you select the type of output that you want.</p>
+<p><img src="articles/images/rmd-dropdown.png" /></p>
+<p>When you click the button, <code>rmarkdown</code> will duplicate your text in the new file format. <code>rmarkdown</code> will use the formatting instructions that you provided with markdown syntax.</p>
+<p>Once the file is rendered, RStudio will show you a preview of the new output and save the output file in your working directory.</p>
+<p>Here is how the markdown script above would look in each output format.</p>
+<p><img src="articles/images/rmd-types.png" /></p>
+<p><em>Note: RStudio does not build PDF and Word documents from scratch. You will need to have a distribution of Latex installed on your computer to make PDFs and Microsoft Word (or a similar program) installed to make Word files.</em></p>
+</div>
+</div>
+<div id="knitr-for-embedded-r-code" class="section level2">
+<h2>knitr for embedded R code</h2>
+<p>The <code>knitr</code> package extends the basic markdown syntax to include chunks of executable R code.</p>
+<p>When you render the report, <code>knitr</code> will run the code and add the results to the output file. You can have the output display just the code, just the results, or both.</p>
+<p>To embed a chunk of R code into your report, surround the code with two lines that each contain three backticks. After the first set of backticks, include <code>{r}</code>, which alerts <code>knitr</code> that you have included a chunk of R code. The result will look like this</p>
+<pre class="r"><code>
+Here’s some code
+
+```r
+dim(iris)
+```
+
+```
+## [1] 150   5
+```
+</code></pre>
+<p>When you render your document, <code>knitr</code> will run the code and append the results to the code chunk. <code>knitr</code> will provide formatting and syntax highlighting to both the code and its results (where appropriate).</p>
+<p>As a result, the markdown snippet above will look like this when rendered (to HTML).</p>
+<p><img src="articles/images/rmd-code.png" /></p>
+<p>To omit the <em>results</em> from your final report (and not run the code) add the argument <code>eval = FALSE</code> inside the brackets and after <code>r</code>. This will place a copy of your code into the report.</p>
+<p><img src="articles/images/rmd-eval.png" /></p>
+<p>To omit the <em>code</em> from the final report (while including the results) add the argument <code>echo = FALSE</code>. This will place a copy of the results into your report.</p>
+<p><img src="articles/images/rmd-echo.png" /></p>
+<p><code>echo = FALSE</code> is very handy for adding plots to a report, since you usually do not want to see the code that generates the plot.</p>
+<p><img src="articles/images/rmd-echo2.png" /></p>
+<p><code>echo</code> and <code>eval</code> are not the only arguments that you can use to customize code chunks. You can learn more about formatting the output of code chunks at the <a href="https://bookdown.org/yihui/rmarkdown/r-code.html">rmarkdown</a> and <a href="http://yihui.name/knitr/options">knitr</a> websites.</p>
+<div id="inline-code" class="section level3">
+<h3>Inline code</h3>
+<p>To embed R code in a line of text, surround the code with a pair of backticks and the letter <code>r</code>, like this.</p>
+<pre class="r"><code>
+Two plus two equals 4.
+</code></pre>
+<p><code>knitr</code> will replace the inline code with its result in your final document (inline code is <em>always</em> replaced by its result). The result will appear as if it were part of the original text. For example, the snippet above will appear like this:</p>
+<p><img src="articles/images/rmd-inline.png" /></p>
+</div>
+</div>
+<div id="yaml-for-render-parameters" class="section level2">
+<h2>YAML for render parameters</h2>
+<p>You can use a YAML header to control how <code>rmarkdown</code> renders your .Rmd file. A YAML header is a section of <code>key: value</code> pairs surrounded by <code>---</code> marks, like below</p>
+<pre class="r"><code>
+---
+title: "Untitled"
+author: "Garrett"
+date: "July 10, 2014"
+output: html_document
+---
+
+Some inline R code, 4.
+</code></pre>
+<p>The <code>output:</code> value determines what type of output to convert the file into when you call <code>rmarkdown::render()</code>. <em>Note: you do not need to specify <code>output:</code> if you render your file with the RStudio IDE knit button.</em></p>
+<p><code>output:</code> recognizes the following values:</p>
+<ul>
+<li><code>html_document</code>, which will create HTML output (default)</li>
+<li><code>pdf_document</code>, which will create PDF output</li>
+<li><code>word_document</code>, which will create Word output</li>
+</ul>
+<p>If you use the RStudio IDE knit button to render your file, the selection you make in the gui will override the <code>output:</code> setting.</p>
+<div id="slideshows" class="section level3">
+<h3>Slideshows</h3>
+<p>You can also use the <code>output:</code> value to render your document as a slideshow.</p>
+<ul>
+<li><code>output: ioslides_presentation</code> will create an ioslides (HTML5) slideshow</li>
+<li><code>output: beamer_presentation</code> will create a beamer (PDF) slideshow</li>
+</ul>
+<p><em>Note: The knit button in the RStudio IDE will update to show slideshow options when you include one of the above output values and save your .Rmd file.</em></p>
+<p><code>rmarkdown</code> will convert your document into a slideshow by starting a new slide at each header or horizontal rule (e.g., <code>***</code>).</p>
+<p>Visit <a href="https://bookdown.org/yihui/rmarkdown/html-document.html">rmakdown.rstudio.com</a> to learn about more YAML options that control the render process.</p>
+</div>
+</div>
+<div id="recap" class="section level2">
+<h2>Recap</h2>
+<p>R Markdown documents provide quick, reproducible reporting from R. You write your document in markdown and embed executable R code chunks with the <code>knitr</code> syntax.</p>
+<p>You can update your document at any time by re-knitting the code chunks.</p>
+<p>You can then convert your document into several common formats.</p>
+<p>R Markdown documents implement Donald’s Knuth’s idea of literate programming and take the manual labor out of writing and maintaining reports. Moreover, they are quick to learn. You already know ecnough about markdown, knitr, and YAML to begin writing your own R Markdown reports.</p>
+<p>In the next article, <a href="http://shiny.rstudio.com/articles/interactive-docs.html">Introduction to interactive documents</a>, you will learn how to add interactive Shiny components to an R Markdown report. This creates a quick workflow for writing light-weight Shiny apps.</p>
+<p>To learn more about R Markdown and interactive documents, please visit <a href="http://rmarkdown.rstudio.com">rmarkdown.rstudio.com</a>.</p>
+</div>
+
+  </div> <!-- articleBandContent -->
+</div> <!-- pageContent -->
+
+<div id="rStudioFooter" class="band full">
+<div class="bandContent">
+  <div id="copyright">© Copyright 2016 - 2018 RStudio Inc.</div>
+  <div id="logos">
+    <a href="https://twitter.com/rstudio" class="footerLogo twitter"></a>
+    <a href="https://github.com/rstudio" class="footerLogo gitHub"></a>
+    <a href="https://www.linkedin.com/company/rstudio-inc" class="footerLogo linkedIn"></a>
+    <a href="https://www.facebook.com/pages/RStudio-Inc/267733656584415" Class="footerLogo facebook"></a>
+  </div>
+</div>
+</div>
+
+<!-- bizible -->
+<script type="text/javascript" src="//cdn.bizible.com/scripts/bizible.js" async=""></script>
+
+<!-- disqus -->
+<div id="disqus_thread" class="standardPadding"></div>
+<script type="text/javascript" src="js/disqus.js"></script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+<script type="text/javascript" src="js/external-links.js"></script>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+
+</body>
+</html>

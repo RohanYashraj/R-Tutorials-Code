@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>R Notebook HTML Format</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<meta name="description" content="Turn your analyses into high quality documents, reports, presentations and dashboards with R Markdown. Use a productive notebook interface to weave together narrative text and code to produce elegantly formatted output. Use multiple languages including R, Python, and SQL. R Markdown supports a reproducible workflow for dozens of static and dynamic output formats including HTML, PDF, MS Word, Beamer, HTML5 slides, Tufte-style handouts, books, dashboards, shiny applications, scientific articles, websites, and more." />
+
+<link rel="icon" type="image/png" href="images/favicon.png" />
+
+<script type="text/javascript" src="js/redirect.js"></script>
+<script type="text/javascript" src="js/rmarkdown.js"></script>
+<script type="text/javascript" src="js/ga.js"></script>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="css/rmarkdown.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div id="rStudioHeader" class="alwaysShrunk">
+  <div class="innards bandContent">
+    <div>
+      <a class="productName" href="index.html">R Markdown</a>
+      <div class="rStudio"><span class="light">from </span> <a href="https://www.rstudio.com/"><div class="logo"></div></a></div>
+    </div>
+
+    <div id="menu">
+      <div id="menuToggler"></div>
+      <div id="menuItems">
+        <a class="menuItem" href="lesson-1.html">Get Started</a>
+        <a class="menuItem" href="gallery.html">Gallery</a>
+        <a class="menuItem" href="formats.html">Formats</a>
+        <a class="menuItem" href="articles.html">Articles</a>
+        <a class="menuItem" href="https://bookdown.org/yihui/rmarkdown/">Book</a>
+        <a class="menuItem" href="docs/">References</a>
+        <a class="menuItem gitHub" href="https://github.com/rstudio/rmarkdown"></a>
+        <a class="menuItem gitHubText" href="https://github.com/rstudio/rmarkdown">Source on GitHub</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style type="text/css">
+#TOC {
+  margin-left: 35px;
+  margin-top: 90px;
+}
+</style>
+
+<script type="text/javascript">
+$(".main-container").removeClass("main-container").removeClass("container-fluid").addClass("footerPushDown");
+</script>
+
+
+<div id="pageContent" class="standardPadding">
+  <div class="articleBandContent">
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">R Notebook HTML Format</h1>
+
+</div>
+
+
+<div id="overview" class="section level2">
+<h2>Overview</h2>
+<p>This article describes the HTML notebook format, and is primarily intended for front-end applications using or embedding R, or other users who are interested in reading and writing documents using the R Notebook format.</p>
+<p>R Notebooks are HTML documents with data written and encoded in such a way that:</p>
+<ol style="list-style-type: decimal">
+<li>The source <code>.Rmd</code> document can be recovered, and</li>
+<li>Chunk outputs can be recovered.</li>
+</ol>
+<p>To generate an R Notebook, you can use <code>rmarkdown::render()</code> and specify the <code>html_notebook</code> output format in your document’s YAML metadata. Documents rendered in this form will be generated with the <code>.nb.html</code> file extension, to indicate that they are HTML notebooks.</p>
+<p>To ensure chunk outputs can be recovered, the elements of the R Markdown document are enclosed with HTML comments, providing more information on the output. For example, chunk output might be serialized as:</p>
+<pre><code>&lt;!-- rnb-chunk-begin --&gt;
+&lt;!-- rnb-output-begin --&gt;
+&lt;pre&gt;&lt;code&gt;Hello, World!&lt;/code&gt;&lt;/pre&gt;
+&lt;!-- rnb-output-end --&gt;
+&lt;!-- rnb-chunk-end --&gt;</code></pre>
+<p>Because R Notebooks are just HTML documents, they can be opened and viewed in any web browser; in addition, hosting environments can be configured to recover and open the source <code>.Rmd</code> document, and also recover and display chunk outputs as appropriate.</p>
+</div>
+<div id="generating-r-notebooks-with-custom-output" class="section level2">
+<h2>Generating R Notebooks with Custom Output</h2>
+<p>It’s possible to render an HTML notebook with custom chunk outputs inserted in lieu of the result that would be generated by evaluating the associated R code. This can be useful for front-end editors that show the output of chunk execution inline, or for conversion programs from other notebook formats where output is already available from the source format. To facilitate this, one can provide a custom ‘output source’ to <code>rmarkdown::render()</code>. Let’s investigate with a simple example:</p>
+<pre class="r"><code>rmd_stub &lt;- &quot;notebook/r-notebook-stub.Rmd&quot;
+contents &lt;- readLines(rmd_stub)
+cat(contents, sep = &quot;\n&quot;)</code></pre>
+<pre><code>## ---
+## title: &quot;R Notebook Stub&quot;
+## output: html_notebook
+## ---
+## 
+## ```{r chunk-one}
+## print(&quot;Hello, World!&quot;)
+## ```</code></pre>
+<p>Let’s try rendering this document with a custom output source, so that we can inject custom output for the single chunk within the document. The output source function will accept:</p>
+<ul>
+<li><code>code</code>: The code within the current chunk,</li>
+<li><code>context</code>: An environment containing active chunk options and other chunk information,</li>
+<li><code>...</code>: Optional arguments reserved for future expansion.</li>
+</ul>
+<p>In particular, the context elements <code>label</code> and <code>chunk.index</code> can be used to help identify which chunk is currently being rendered.</p>
+<pre class="r"><code>output_source &lt;- function(code, context, ...) {
+  logo &lt;- file.path(R.home(), &quot;doc/html/logo.jpg&quot;)
+  if (context$label == &quot;chunk-one&quot;) {
+    return(list(
+      rmarkdown::html_notebook_output_code(&quot;# R Code&quot;),
+      paste(&quot;Custom output for chunk:&quot;, context$chunk.index),
+      rmarkdown::html_notebook_output_code(&quot;# R Logo&quot;),
+      rmarkdown::html_notebook_output_img(logo)
+    ))
+  }
+}</code></pre>
+<p>We can pass our <code>output_source</code> along as part of the <code>output_options</code> list to <code>rmarkdown::render()</code>.</p>
+<pre class="r"><code>output_file &lt;-
+  rmarkdown::render(rmd_stub,
+                    output_options = list(output_source = output_source),
+                    quiet = TRUE)</code></pre>
+<p>We’ve now generated an R Notebook. Opening <a href="notebook/r-notebook-stub.nb.html">this document</a> in a web browser will show that the <code>output_source</code> function has effectively side-stepped evaluation of code within that chunk, and instead returned the injected result:</p>
+</div>
+<div id="implementing-output-sources" class="section level2">
+<h2>Implementing Output Sources</h2>
+<p>In general, you can provide regular R output in your output source function, but <code>rmarkdown</code> also provides a number of endpoints for insertion of custom HTML content. These are documented within <code>?html_notebook_output</code>.</p>
+<p>Using these functions ensures that you produce an R Notebook that can be opened in R frontends (e.g. RStudio).</p>
+</div>
+<div id="parsing-r-notebooks" class="section level2">
+<h2>Parsing R Notebooks</h2>
+<p>The <code>rmarkdown::parse_html_notebook()</code> function provides an interface for recovering and parsing an HTML notebook.</p>
+<pre class="r"><code>parsed &lt;- rmarkdown::parse_html_notebook(output_file)
+str(parsed)</code></pre>
+<pre><code>## List of 4
+##  $ source     : chr [1:1832] &quot;&lt;!DOCTYPE html&gt;&quot; &quot;&quot; &quot;&lt;html&gt;&quot; &quot;&quot; ...
+##  $ rmd        : chr [1:8] &quot;---&quot; &quot;title: \&quot;R Notebook Stub\&quot;&quot; &quot;output: html_notebook&quot; &quot;---&quot; ...
+##  $ header     : chr [1:1718] &quot;&lt;head&gt;&quot; &quot;&quot; &quot;&lt;meta charset=\&quot;utf-8\&quot; /&gt;&quot; &quot;&lt;meta name=\&quot;generator\&quot; content=\&quot;pandoc\&quot; /&gt;&quot; ...
+##  $ annotations:List of 12
+##   ..$ :List of 4
+##   .. ..$ row  : int 1751
+##   .. ..$ label: chr &quot;text&quot;
+##   .. ..$ state: chr &quot;begin&quot;
+##   .. ..$ meta : NULL
+##   ..$ :List of 4
+##   .. ..$ row  : int 1752
+##   .. ..$ label: chr &quot;text&quot;
+##   .. ..$ state: chr &quot;end&quot;
+##   .. ..$ meta : NULL
+##   ..$ :List of 4
+##   .. ..$ row  : int 1753
+##   .. ..$ label: chr &quot;chunk&quot;
+##   .. ..$ state: chr &quot;begin&quot;
+##   .. ..$ meta : NULL
+##   ..$ :List of 4
+##   .. ..$ row  : int 1754
+##   .. ..$ label: chr &quot;source&quot;
+##   .. ..$ state: chr &quot;begin&quot;
+##   .. ..$ meta :List of 1
+##   .. .. ..$ data: chr &quot;```r\n# R Code\n```&quot;
+##   ..$ :List of 4
+##   .. ..$ row  : int 1756
+##   .. ..$ label: chr &quot;source&quot;
+##   .. ..$ state: chr &quot;end&quot;
+##   .. ..$ meta : NULL
+##   ..$ :List of 4
+##   .. ..$ row  : int 1757
+##   .. ..$ label: chr &quot;output&quot;
+##   .. ..$ state: chr &quot;begin&quot;
+##   .. ..$ meta :List of 1
+##   .. .. ..$ data: chr &quot;Custom output for chunk: 1\n&quot;
+##   ..$ :List of 4
+##   .. ..$ row  : int 1759
+##   .. ..$ label: chr &quot;output&quot;
+##   .. ..$ state: chr &quot;end&quot;
+##   .. ..$ meta : NULL
+##   ..$ :List of 4
+##   .. ..$ row  : int 1760
+##   .. ..$ label: chr &quot;source&quot;
+##   .. ..$ state: chr &quot;begin&quot;
+##   .. ..$ meta :List of 1
+##   .. .. ..$ data: chr &quot;```r\n# R Logo\n```&quot;
+##   ..$ :List of 4
+##   .. ..$ row  : int 1762
+##   .. ..$ label: chr &quot;source&quot;
+##   .. ..$ state: chr &quot;end&quot;
+##   .. ..$ meta : NULL
+##   ..$ :List of 4
+##   .. ..$ row  : int 1763
+##   .. ..$ label: chr &quot;plot&quot;
+##   .. ..$ state: chr &quot;begin&quot;
+##   .. ..$ meta : NULL
+##   ..$ :List of 4
+##   .. ..$ row  : int 1765
+##   .. ..$ label: chr &quot;plot&quot;
+##   .. ..$ state: chr &quot;end&quot;
+##   .. ..$ meta : NULL
+##   ..$ :List of 4
+##   .. ..$ row  : int 1766
+##   .. ..$ label: chr &quot;chunk&quot;
+##   .. ..$ state: chr &quot;end&quot;
+##   .. ..$ meta : NULL</code></pre>
+<p>This interface can be used to recover the original <code>.Rmd</code> source, and also (with some more effort from the front-end) the ability to recover chunk outputs from the document itself.</p>
+</div>
+
+  </div> <!-- articleBandContent -->
+</div> <!-- pageContent -->
+
+<div id="rStudioFooter" class="band full">
+<div class="bandContent">
+  <div id="copyright">© Copyright 2016 - 2018 RStudio Inc.</div>
+  <div id="logos">
+    <a href="https://twitter.com/rstudio" class="footerLogo twitter"></a>
+    <a href="https://github.com/rstudio" class="footerLogo gitHub"></a>
+    <a href="https://www.linkedin.com/company/rstudio-inc" class="footerLogo linkedIn"></a>
+    <a href="https://www.facebook.com/pages/RStudio-Inc/267733656584415" Class="footerLogo facebook"></a>
+  </div>
+</div>
+</div>
+
+<!-- bizible -->
+<script type="text/javascript" src="//cdn.bizible.com/scripts/bizible.js" async=""></script>
+
+<!-- disqus -->
+<div id="disqus_thread" class="standardPadding"></div>
+<script type="text/javascript" src="js/disqus.js"></script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+<script type="text/javascript" src="js/external-links.js"></script>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+
+</body>
+</html>

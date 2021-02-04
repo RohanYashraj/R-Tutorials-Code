@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Markdown Basics</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<meta name="description" content="Turn your analyses into high quality documents, reports, presentations and dashboards with R Markdown. Use a productive notebook interface to weave together narrative text and code to produce elegantly formatted output. Use multiple languages including R, Python, and SQL. R Markdown supports a reproducible workflow for dozens of static and dynamic output formats including HTML, PDF, MS Word, Beamer, HTML5 slides, Tufte-style handouts, books, dashboards, shiny applications, scientific articles, websites, and more." />
+
+<link rel="icon" type="image/png" href="images/favicon.png" />
+
+<script type="text/javascript" src="js/redirect.js"></script>
+<script type="text/javascript" src="js/rmarkdown.js"></script>
+<script type="text/javascript" src="js/ga.js"></script>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="css/rmarkdown.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div id="rStudioHeader" class="alwaysShrunk">
+  <div class="innards bandContent">
+    <div>
+      <a class="productName" href="index.html">R Markdown</a>
+      <div class="rStudio"><span class="light">from </span> <a href="https://www.rstudio.com/"><div class="logo"></div></a></div>
+    </div>
+
+    <div id="menu">
+      <div id="menuToggler"></div>
+      <div id="menuItems">
+        <a class="menuItem" href="lesson-1.html">Get Started</a>
+        <a class="menuItem" href="gallery.html">Gallery</a>
+        <a class="menuItem" href="formats.html">Formats</a>
+        <a class="menuItem" href="articles.html">Articles</a>
+        <a class="menuItem" href="https://bookdown.org/yihui/rmarkdown/">Book</a>
+        <a class="menuItem" href="docs/">References</a>
+        <a class="menuItem gitHub" href="https://github.com/rstudio/rmarkdown"></a>
+        <a class="menuItem gitHubText" href="https://github.com/rstudio/rmarkdown">Source on GitHub</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style type="text/css">
+#TOC {
+  margin-left: 35px;
+  margin-top: 90px;
+}
+</style>
+
+<script type="text/javascript">
+$(".main-container").removeClass("main-container").removeClass("container-fluid").addClass("footerPushDown");
+</script>
+
+
+<div id="pageContent" class="standardPadding">
+  <div class="articleBandContent">
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Markdown Basics</h1>
+
+</div>
+
+
+<p>This document provides quick references to the most commonly used R Markdown syntax. See the following articles for more in-depth treatment of all the capabilities of R Markdown:</p>
+<ul>
+<li><p><a href="https://bookdown.org/yihui/rmarkdown/r-code.html">R Code Chunks</a></p></li>
+<li><p><a href="authoring_pandoc_markdown.html">Pandoc Markdown</a></p></li>
+</ul>
+<div id="emphasis" class="section level4">
+<h4>Emphasis</h4>
+<pre class="markdown"><code>*italic*   **bold**
+
+_italic_   __bold__</code></pre>
+</div>
+<div id="headers" class="section level4">
+<h4>Headers</h4>
+<pre class="markdown"><code># Header 1
+
+## Header 2
+
+### Header 3</code></pre>
+</div>
+<div id="lists" class="section level4">
+<h4>Lists</h4>
+<p>Unordered List:</p>
+<pre class="markdown"><code>* Item 1
+* Item 2
+    + Item 2a
+    + Item 2b</code></pre>
+<p>Ordered List:</p>
+<pre class="markdown"><code>1. Item 1
+2. Item 2
+3. Item 3
+    + Item 3a
+    + Item 3b</code></pre>
+</div>
+<div id="r-code-chunks" class="section level4">
+<h4>R Code Chunks</h4>
+<p>R code will be evaluated and printed</p>
+<pre class="markdown"><code>&#96;&#96;&#96;{r}
+summary(cars$dist)
+summary(cars$speed)
+&#96;&#96;&#96;
+</code></pre>
+</div>
+<div id="inline-r-code" class="section level4">
+<h4>Inline R Code</h4>
+<pre class="markdown"><code>There were `r nrow(cars)` cars studied</code></pre>
+</div>
+<div id="links" class="section level4">
+<h4>Links</h4>
+<p>Use a plain http address or add a link to a phrase:</p>
+<pre class="markdown"><code>http://example.com
+
+[linked phrase](http://example.com)</code></pre>
+</div>
+<div id="images" class="section level4">
+<h4>Images</h4>
+<p>Images on the web or local files in the same directory:</p>
+<pre class="markdown"><code>![](http://example.com/logo.png)
+
+![optional caption text](figures/img.png)</code></pre>
+</div>
+<div id="blockquotes" class="section level4">
+<h4>Blockquotes</h4>
+<pre class="markdown"><code>A friend once said:
+
+&gt; It&#39;s always better to give
+&gt; than to receive.</code></pre>
+</div>
+<div id="plain-code-blocks" class="section level4">
+<h4>Plain Code Blocks</h4>
+<p>Plain code blocks are displayed in a fixed-width font but not evaulated</p>
+<pre class="markdown"><code>&#96;&#96;&#96;
+This text is displayed verbatim / preformatted
+&#96;&#96;&#96;
+</code></pre>
+</div>
+<div id="inline-code" class="section level4">
+<h4>Inline Code</h4>
+<pre class="markdown"><code>We defined the `add` function to
+compute the sum of two numbers.
+LaTeX Equations</code></pre>
+</div>
+<div id="latex-equations" class="section level4">
+<h4>LaTeX Equations</h4>
+<p>Inline equation:</p>
+<pre class="markdown"><code>$equation$</code></pre>
+<p>Display equation:</p>
+<pre class="markdown"><code>$$ equation $$</code></pre>
+</div>
+<div id="horizontal-rule-page-break" class="section level4">
+<h4>Horizontal Rule / Page Break</h4>
+<p>Three or more asterisks or dashes:</p>
+<pre class="markdown"><code>******
+
+------</code></pre>
+</div>
+<div id="tables" class="section level4">
+<h4>Tables</h4>
+<pre class="markdown"><code>First Header  | Second Header
+------------- | -------------
+Content Cell  | Content Cell
+Content Cell  | Content Cell
+Reference Style Links and Images</code></pre>
+</div>
+<div id="links-1" class="section level4">
+<h4>Links</h4>
+<pre class="markdown"><code>A [linked phrase][id].</code></pre>
+<p>At the bottom of the document:</p>
+<pre class="markdown"><code>[id]: http://example.com/ &quot;Title&quot;
+Images
+![alt text][id]</code></pre>
+<p>At the bottom of the document:</p>
+<pre class="markdown"><code>[id]: figures/img.png &quot;Title&quot;</code></pre>
+</div>
+<div id="manual-line-breaks" class="section level4">
+<h4>Manual Line Breaks</h4>
+<p>End a line with two or more spaces:</p>
+<pre class="markdown"><code>Roses are red,
+Violets are blue.</code></pre>
+</div>
+<div id="miscellaneous" class="section level4">
+<h4>Miscellaneous</h4>
+<pre class="markdown"><code>superscript^2^
+
+~~strikethrough~~</code></pre>
+</div>
+
+  </div> <!-- articleBandContent -->
+</div> <!-- pageContent -->
+
+<div id="rStudioFooter" class="band full">
+<div class="bandContent">
+  <div id="copyright">© Copyright 2016 - 2018 RStudio Inc.</div>
+  <div id="logos">
+    <a href="https://twitter.com/rstudio" class="footerLogo twitter"></a>
+    <a href="https://github.com/rstudio" class="footerLogo gitHub"></a>
+    <a href="https://www.linkedin.com/company/rstudio-inc" class="footerLogo linkedIn"></a>
+    <a href="https://www.facebook.com/pages/RStudio-Inc/267733656584415" Class="footerLogo facebook"></a>
+  </div>
+</div>
+</div>
+
+<!-- bizible -->
+<script type="text/javascript" src="//cdn.bizible.com/scripts/bizible.js" async=""></script>
+
+<!-- disqus -->
+<div id="disqus_thread" class="standardPadding"></div>
+<script type="text/javascript" src="js/disqus.js"></script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+<script type="text/javascript" src="js/external-links.js"></script>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+
+</body>
+</html>

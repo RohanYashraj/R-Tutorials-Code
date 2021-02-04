@@ -1,0 +1,20 @@
+---
+title: "Tables"
+output:
+  html_document:
+    toc_float: false
+    includes:
+      before_body: [include_header.html, include_lessons_nav.html]
+      after_body: [include_lessons_nav_end.html, include_footer.html]
+---
+
+By default, R Markdown displays data frames and matrixes as they would be in the R terminal (in a monospaced font). If you prefer that data be displayed with additional formatting you can use the `knitr::kable` function, as in the .Rmd file below. This file is available [here](https://rstudio.cloud/project/181946) on RStudio Cloud. 
+
+![](lesson-images/tables-1-kable.png)
+
+Note the use of the `results='asis'` chunk option. This is required to ensure that the raw table output isn’t processed further by knitr.
+
+
+***
+
+## [Continue to Markdown Basics](lesson-8.html){.continue-link}

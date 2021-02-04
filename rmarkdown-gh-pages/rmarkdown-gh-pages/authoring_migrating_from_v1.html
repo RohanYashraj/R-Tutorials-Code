@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Migrating from R Markdown v1</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<meta name="description" content="Turn your analyses into high quality documents, reports, presentations and dashboards with R Markdown. Use a productive notebook interface to weave together narrative text and code to produce elegantly formatted output. Use multiple languages including R, Python, and SQL. R Markdown supports a reproducible workflow for dozens of static and dynamic output formats including HTML, PDF, MS Word, Beamer, HTML5 slides, Tufte-style handouts, books, dashboards, shiny applications, scientific articles, websites, and more." />
+
+<link rel="icon" type="image/png" href="images/favicon.png" />
+
+<script type="text/javascript" src="js/redirect.js"></script>
+<script type="text/javascript" src="js/rmarkdown.js"></script>
+<script type="text/javascript" src="js/ga.js"></script>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="css/rmarkdown.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div id="rStudioHeader" class="alwaysShrunk">
+  <div class="innards bandContent">
+    <div>
+      <a class="productName" href="index.html">R Markdown</a>
+      <div class="rStudio"><span class="light">from </span> <a href="https://www.rstudio.com/"><div class="logo"></div></a></div>
+    </div>
+
+    <div id="menu">
+      <div id="menuToggler"></div>
+      <div id="menuItems">
+        <a class="menuItem" href="lesson-1.html">Get Started</a>
+        <a class="menuItem" href="gallery.html">Gallery</a>
+        <a class="menuItem" href="formats.html">Formats</a>
+        <a class="menuItem" href="articles.html">Articles</a>
+        <a class="menuItem" href="https://bookdown.org/yihui/rmarkdown/">Book</a>
+        <a class="menuItem" href="docs/">References</a>
+        <a class="menuItem gitHub" href="https://github.com/rstudio/rmarkdown"></a>
+        <a class="menuItem gitHubText" href="https://github.com/rstudio/rmarkdown">Source on GitHub</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style type="text/css">
+#TOC {
+  margin-left: 35px;
+  margin-top: 90px;
+}
+</style>
+
+<script type="text/javascript">
+$(".main-container").removeClass("main-container").removeClass("container-fluid").addClass("footerPushDown");
+</script>
+
+
+<div id="pageContent" class="standardPadding">
+  <div class="articleBandContent">
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Migrating from R Markdown v1</h1>
+
+</div>
+
+
+<div id="changes-in-v2" class="section level2">
+<h2>Changes in v2</h2>
+<p>The current implementation of R Markdown (v2) is an evolution of the original implementation, which was not based on pandoc but rather the <a href="https://github.com/rstudio/markdown">markdown</a> package. Moving to pandoc brings many new features to R Markdown however carries some minor incompatibilities with the previous implementation that are described below.</p>
+<div id="markdown-syntax" class="section level3">
+<h3>Markdown Syntax</h3>
+<p>The following changes to markdown syntax were made in R Markdown v2:</p>
+<ol style="list-style-type: decimal">
+<li>The syntax for superscript now requires a closing ^ (e.g. <code>superscript^2^</code>).</li>
+<li>The WordPress-style LaTeX equation syntax (e.g. <code>$latex &lt;equation&gt;$</code>) is no longer supported.</li>
+<li>Markdown is rendered even if it’s contained within HTML tags.</li>
+</ol>
+</div>
+<div id="preserving-generated-html" class="section level3">
+<h3>Preserving Generated HTML</h3>
+<p>The change to render markdown within HTML tags has consequences for R functions that generate HTML for inclusion in a markdown document. The markdown processor considers any text that is indented 4 spaces to be preformatted text. This means that if you indent generated HTML tags 4 spaces they will be output as preformatted (i.e. within a <code>&lt;pre&gt;</code> tag).</p>
+<p>If you are creating an R function that generates HTML there are a number of ways to avoid this behavior:</p>
+<ol style="list-style-type: decimal">
+<li>Enclose the HTML in a special comment that indicates that no markdown processing should occur:</li>
+</ol>
+<pre>
+    &lt;!--html_preserve--&gt;
+        &lt;strong&gt;This will render as HTML not preformatted text&lt;/strong&gt;
+    &lt;!--/html_preserve--&gt;
+</pre>
+<ol start="2" style="list-style-type: decimal">
+<li><p>Generate HTML that does not indent tags at the beginning of lines.</p></li>
+<li><p>A varation of #2, use the <a href="http://cran.r-project.org/web/packages/htmltools/index.html"><strong>htmltools</strong></a> package to generate HTML (which will print it’s output by default without indentation).</p></li>
+</ol>
+<p>If you are a user of an R package that is generating HTML that includes indentation you can temporarily workaround the problem by rendering your documnent with rmarkdown v1 (see section below on <a href="#continuing-to-use-v1">Continuing to Use v1</a>).</p>
+</div>
+<div id="the-knitr-package" class="section level3">
+<h3>The knitr Package</h3>
+<p>R Markdown v2 no longer attaches the <strong>knitr</strong> package by default, i.e. it does not do <code>library(knitr)</code> before an R Markdown document is compiled (whereas v1 does), and <strong>knitr</strong> is only <em>loaded</em> but not <em>attached</em>. As a result, you may see an error message like <code>object 'opts_chunk' not found</code> (or other objects in <strong>knitr</strong> not found). Not attaching a package makes the work space cleaner. If you only need to use a small number of objects in a package occasionally, you are recommended to use the <code>::</code> operator, e.g. <code>knitr::opts_chunk</code>. However, sometimes we may need to a lot of objects in a package, and it will be cumbersome to type <code>package::</code> again and again. In this case, you can attach the package to the current R session explicitly, e.g. <code>library(knitr)</code>.</p>
+</div>
+<div id="knitr-caching" class="section level3">
+<h3>Knitr Caching</h3>
+<p>One other important change relates to the use of the <a href="http://yihui.name/knitr/demo/cache/">knitr cache</a>. When R Markdown knits documents it explicitly configures the knitr cache to use a directory based on the name of the input file (e.g. <code>inputfile_cache</code>). If you are setting an explicit cache directory within your document (e.g. via <code>opts_chunk$set(cache.path = ...))</code>) you should remove this code and rely on R Markdown to set the cache directory.</p>
+</div>
+<div id="other-knitr-options" class="section level3">
+<h3>Other knitr Options</h3>
+<p>Besides the <code>cache.path</code> option, the rmarkdown package has also modifies a few other default <a href="http://yihui.name/knitr/options">chunk options</a> in knitr when calling <code>rmarkdown::render()</code>, including</p>
+<ul>
+<li><code>fig.path</code>: the default value in knitr is <code>figure/</code>, and it has been changed to <code>inputfile_files/figure-format/</code>, where <code>format</code> is the output format, such as <code>html</code>;</li>
+<li><code>error</code>: it was changed from <code>TRUE</code> to <code>FALSE</code>, meaning that knitr will stop on error by default;</li>
+</ul>
+<p>There are some other subtle changes, such as <code>fig.retina</code> (from <code>NULL</code> to <code>2</code> for the HTML output), <code>fig.width</code> and <code>fig.height</code> (depending on the document output format). You can print <code>knitr::opts_chunk$get()</code> in an R Markdown document to see the default chunk options configured by rmarkdown.</p>
+</div>
+</div>
+<div id="continuing-to-use-v1" class="section level2">
+<h2>Continuing to Use v1</h2>
+<p>If you are using RStudio you can force RStudio to render documents using R Markdown v1 by adding a special comment to your source file:</p>
+<pre>&lt;!-- rmarkdown v1 --&gt;</pre>
+<p>For rendering R Markdown v1 documents outside of RStudio you can continue to use the <a href="https://github.com/rstudio/markdown">markdown</a> package.</p>
+</div>
+
+  </div> <!-- articleBandContent -->
+</div> <!-- pageContent -->
+
+<div id="rStudioFooter" class="band full">
+<div class="bandContent">
+  <div id="copyright">© Copyright 2016 - 2018 RStudio Inc.</div>
+  <div id="logos">
+    <a href="https://twitter.com/rstudio" class="footerLogo twitter"></a>
+    <a href="https://github.com/rstudio" class="footerLogo gitHub"></a>
+    <a href="https://www.linkedin.com/company/rstudio-inc" class="footerLogo linkedIn"></a>
+    <a href="https://www.facebook.com/pages/RStudio-Inc/267733656584415" Class="footerLogo facebook"></a>
+  </div>
+</div>
+</div>
+
+<!-- bizible -->
+<script type="text/javascript" src="//cdn.bizible.com/scripts/bizible.js" async=""></script>
+
+<!-- disqus -->
+<div id="disqus_thread" class="standardPadding"></div>
+<script type="text/javascript" src="js/disqus.js"></script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+<script type="text/javascript" src="js/external-links.js"></script>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+
+</body>
+</html>

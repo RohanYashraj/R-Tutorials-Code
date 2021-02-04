@@ -1,0 +1,2 @@
+"0","cities <- full_join(sources, destinations, by = c(""source"" = ""destination""))"
+"0","cities"

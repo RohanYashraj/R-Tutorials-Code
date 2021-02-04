@@ -1,0 +1,30 @@
+---
+title: "Dashboards"
+output:
+  html_document:
+    toc_float: false
+    includes:
+      before_body: [include_header.html, include_lessons_nav.html]
+      after_body: [include_lessons_nav_end.html, include_footer.html]
+---
+
+Dashboards are a useful way to communicate large amounts of information visually and quickly. Create one with the `flexdashboard::flex_dashboard` output format, as in the .Rmd file below (available [here](https://rstudio.cloud/project/181966) on RStudio Cloud):
+
+![](lesson-images/dashboards-1-dashboard.png)
+</br>
+
+Flexdashboard makes it easy to organize your content into a visual layout:
+
+* Each Level 1 Header (`#`) begins a new page in the dashboard.
+* Each Level 2 Header (`##`) begins a new column.
+* Each Level 3 Header (`###`) begins a new box.
+
+You can further modify elements with attributes, as in the `{.sidebar}` above.
+
+Flexdashboard also provides simple tools for creating tabsets, value boxes, and gauges. Learn more about flexdashboard at [flexdashboard: Easy interactive dashboards for R](/flexdashboard/).
+
+***
+
+## [Continue to Websites](lesson-13.html){.continue-link}
+
+

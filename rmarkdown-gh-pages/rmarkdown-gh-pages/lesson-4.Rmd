@@ -1,0 +1,29 @@
+---
+title: "Inline Code"
+output:
+  html_document:
+    toc_float: false
+    includes:
+      before_body: [include_header.html, include_lessons_nav.html]
+      after_body: [include_lessons_nav_end.html, include_footer.html]
+---
+
+Code results can be inserted directly into the text of a .Rmd file by enclosing the code with `` `r `  ``. The file below uses `` `r `  `` twice to call `colorFunc`, which returns "heat.colors." You can open the file [here](https://rstudio.cloud/project/181921) in RStudio Cloud.
+
+![](lesson-images/inline-1-heat.png)
+</br>
+
+Using `` `r `  `` makes it easy to update the report to refer to another function. 
+
+![](lesson-images/inline-2-terrain.png)
+</br>
+
+R Markdown will always 
+
+* display the results of inline code, but not the code
+* apply relevant text formatting to the results
+
+As a result, inline output is indistinguishable from the surrounding text. Inline expressions do not take knitr options. 
+
+***
+## [Continue to Code Languages](lesson-5.html){.continue-link}

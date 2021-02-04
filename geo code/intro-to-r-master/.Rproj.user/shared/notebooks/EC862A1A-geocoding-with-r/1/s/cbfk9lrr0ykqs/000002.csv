@@ -1,0 +1,4 @@
+"0","locations_df <- mutate_geocode(cities_df, place)"
+"2","Error: Google now requires an API key.
+       See ?register_google for details.
+"

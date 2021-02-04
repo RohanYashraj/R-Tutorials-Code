@@ -1,0 +1,10 @@
+"0","letters <- read_csv(""data/correspondence-data-1585.csv"")"
+"2","Parsed with column specification:
+cols(
+  writer = [31mcol_character()[39m,
+  source = [31mcol_character()[39m,
+  destination = [31mcol_character()[39m,
+  date = [34mcol_date(format = """")[39m
+)
+"
+"0","letters"

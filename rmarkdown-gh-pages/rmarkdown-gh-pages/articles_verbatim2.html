@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Ramnath Vaidyanathan" />
+
+<meta name="date" content="2014-03-12" />
+
+<title>Verbatim Chunks in R Markdown</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<meta name="description" content="Turn your analyses into high quality documents, reports, presentations and dashboards with R Markdown. Use a productive notebook interface to weave together narrative text and code to produce elegantly formatted output. Use multiple languages including R, Python, and SQL. R Markdown supports a reproducible workflow for dozens of static and dynamic output formats including HTML, PDF, MS Word, Beamer, HTML5 slides, Tufte-style handouts, books, dashboards, shiny applications, scientific articles, websites, and more." />
+
+<link rel="icon" type="image/png" href="images/favicon.png" />
+
+<script type="text/javascript" src="js/redirect.js"></script>
+<script type="text/javascript" src="js/rmarkdown.js"></script>
+<script type="text/javascript" src="js/ga.js"></script>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="css/rmarkdown.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div id="rStudioHeader" class="alwaysShrunk">
+  <div class="innards bandContent">
+    <div>
+      <a class="productName" href="index.html">R Markdown</a>
+      <div class="rStudio"><span class="light">from </span> <a href="https://www.rstudio.com/"><div class="logo"></div></a></div>
+    </div>
+
+    <div id="menu">
+      <div id="menuToggler"></div>
+      <div id="menuItems">
+        <a class="menuItem" href="lesson-1.html">Get Started</a>
+        <a class="menuItem" href="gallery.html">Gallery</a>
+        <a class="menuItem" href="formats.html">Formats</a>
+        <a class="menuItem" href="articles.html">Articles</a>
+        <a class="menuItem" href="https://bookdown.org/yihui/rmarkdown/">Book</a>
+        <a class="menuItem" href="docs/">References</a>
+        <a class="menuItem gitHub" href="https://github.com/rstudio/rmarkdown"></a>
+        <a class="menuItem gitHubText" href="https://github.com/rstudio/rmarkdown">Source on GitHub</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style type="text/css">
+#TOC {
+  margin-left: 35px;
+  margin-top: 90px;
+}
+</style>
+
+<script type="text/javascript">
+$(".main-container").removeClass("main-container").removeClass("container-fluid").addClass("footerPushDown");
+</script>
+
+
+<div id="pageContent" class="standardPadding">
+  <div class="articleBandContent">
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Verbatim Chunks in R Markdown</h1>
+<h4 class="author">Ramnath Vaidyanathan</h4>
+<h4 class="date">March 12, 2014</h4>
+
+</div>
+
+
+<p><em>This article is reposted from <a href="https://ramnathv.github.io/posts/verbatim-chunks-knitr/">Addicted to R</a> with the kind permission of Ramnath Vaidyanathan.</em></p>
+<p><a href="https://www.rstudio.com/ide/docs/r_markdown">RMarkdown</a> has truly revolutinized the way I write. The simplicity of <a href="http://daringfireball.net/projects/markdown/">markdown</a> and the extreme flexibility of <a href="http://github.com/yihui/knitr">knitr</a> allows me to combine text and code in ways I would never have been able to do before.</p>
+<p>One of the things I have always wanted to do is to be able to print code chunks verbatim, along with the chunk markup. This is especially useful while writing tutorials, where I want the user to see the code chunk “asis”.</p>
+<p>Initially, I thought that I could achieve this by indenting the code chunk, thereby “fooling” <a href="http://github.com/yihui/knitr">knitr</a> into believing that it is not a code chunk, and thereby printing it verbatim in a <code>&lt;code&gt;</code> block. But I was terribly mistaken. Apparently, <code>knitr</code> is too smart to be fooled, and no matter how deep you tuck away or indent the chunk, <code>knitr</code> always finds it and executes it!</p>
+<p>Digging a little deeper, I found an example from the author in his <a href="https://github.com/yihui/knitr-examples/blob/master/062-chunk-wrapper.Rmd">knitr-examples</a> repo. The basic idea was to write a <a href="yihui.name/knitr/hooks">chunk hook</a> that wraps the source code with the markup. It makes use of the option <code>params.src</code> that contains the chunk options that are set locally.</p>
+<pre class="r"><code>knitr::knit_hooks$set(wrapper = function(before, options, envir) {
+  if (before) {
+    sprintf(&#39;    ```{r %s}\n&#39;, options$params.src)
+  } else &#39;    ```\n&#39;
+})</code></pre>
+<p>Let us test it out by adding <code>wrapper = TRUE</code> to a code chunk.</p>
+<pre><code>```{r test_label, wrapper=TRUE, eval=FALSE}</code></pre>
+<pre class="r"><code>1+1
+plot(1)</code></pre>
+<pre><code>```</code></pre>
+<p>It works! Well, it almost works. I say almost, because I don’t like how it splits the code and the chunk markup into different blocks. I am sure that I can clean this up using some regex-fu, but I wanted to explore a cleaner solution using hooks.</p>
+<p>After a lot of experimentation, I ended up with the following hook. Note that my implementation involves a source hook and not a chunk hook, like the one proposed by <a href="http://yihui.name">Yihui</a>. It is customized for <code>Rmd</code> documents, but is easy to extend for other formats like <code>Rnw</code>.</p>
+<pre class="r"><code>knitr::knit_hooks$set(source = function(x, options){
+  if (!is.null(options$verbatim) &amp;&amp; options$verbatim){
+    opts = gsub(&quot;,\\s*verbatim\\s*=\\s*TRUE\\s*&quot;, &quot;&quot;, options$params.src)
+    bef = sprintf(&#39;\n\n    ```{r %s}\n&#39;, opts, &quot;\n&quot;)
+    stringr::str_c(
+      bef, 
+      knitr:::indent_block(paste(x, collapse = &#39;\n&#39;), &quot;    &quot;), 
+      &quot;\n    ```\n&quot;
+    )
+  } else {
+    stringr::str_c(&quot;\n\n```&quot;, tolower(options$engine), &quot;\n&quot;, 
+      paste(x, collapse = &#39;\n&#39;), &quot;\n```\n\n&quot;
+    )
+  }
+})</code></pre>
+<p>Let us now test how this hook performs.</p>
+<pre><code>```{r qplot, fig.width = 5, fig.height = 5, fig.align = &quot;center&quot;, message=FALSE}
+library(ggplot2)
+qplot(wt, am, color = vs, data = mtcars)
+```</code></pre>
+<p><img src="articles_verbatim2_files/figure-html/qplot-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p>Yeyy! It works exactly like how I wanted it to. As always, this post is fully reproducible, and you can find the code <a href="https://ramnathv.github.io/posts/verbatim-chunks-knitr/index.Rmd">here</a>.</p>
+<style>
+pre {
+  padding: 0;
+}
+pre code {
+  padding: 1rem;
+}
+p {
+  text-align: justify;
+}
+</style>
+
+  </div> <!-- articleBandContent -->
+</div> <!-- pageContent -->
+
+<div id="rStudioFooter" class="band full">
+<div class="bandContent">
+  <div id="copyright">© Copyright 2016 - 2018 RStudio Inc.</div>
+  <div id="logos">
+    <a href="https://twitter.com/rstudio" class="footerLogo twitter"></a>
+    <a href="https://github.com/rstudio" class="footerLogo gitHub"></a>
+    <a href="https://www.linkedin.com/company/rstudio-inc" class="footerLogo linkedIn"></a>
+    <a href="https://www.facebook.com/pages/RStudio-Inc/267733656584415" Class="footerLogo facebook"></a>
+  </div>
+</div>
+</div>
+
+<!-- bizible -->
+<script type="text/javascript" src="//cdn.bizible.com/scripts/bizible.js" async=""></script>
+
+<!-- disqus -->
+<div id="disqus_thread" class="standardPadding"></div>
+<script type="text/javascript" src="js/disqus.js"></script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+<script type="text/javascript" src="js/external-links.js"></script>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+
+</body>
+</html>

@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>R Markdown Quick Tour</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<meta name="description" content="Turn your analyses into high quality documents, reports, presentations and dashboards with R Markdown. Use a productive notebook interface to weave together narrative text and code to produce elegantly formatted output. Use multiple languages including R, Python, and SQL. R Markdown supports a reproducible workflow for dozens of static and dynamic output formats including HTML, PDF, MS Word, Beamer, HTML5 slides, Tufte-style handouts, books, dashboards, shiny applications, scientific articles, websites, and more." />
+
+<link rel="icon" type="image/png" href="images/favicon.png" />
+
+<script type="text/javascript" src="js/redirect.js"></script>
+<script type="text/javascript" src="js/rmarkdown.js"></script>
+<script type="text/javascript" src="js/ga.js"></script>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="css/rmarkdown.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div id="rStudioHeader" class="alwaysShrunk">
+  <div class="innards bandContent">
+    <div>
+      <a class="productName" href="index.html">R Markdown</a>
+      <div class="rStudio"><span class="light">from </span> <a href="https://www.rstudio.com/"><div class="logo"></div></a></div>
+    </div>
+
+    <div id="menu">
+      <div id="menuToggler"></div>
+      <div id="menuItems">
+        <a class="menuItem" href="lesson-1.html">Get Started</a>
+        <a class="menuItem" href="gallery.html">Gallery</a>
+        <a class="menuItem" href="formats.html">Formats</a>
+        <a class="menuItem" href="articles.html">Articles</a>
+        <a class="menuItem" href="https://bookdown.org/yihui/rmarkdown/">Book</a>
+        <a class="menuItem" href="docs/">References</a>
+        <a class="menuItem gitHub" href="https://github.com/rstudio/rmarkdown"></a>
+        <a class="menuItem gitHubText" href="https://github.com/rstudio/rmarkdown">Source on GitHub</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style type="text/css">
+#TOC {
+  margin-left: 35px;
+  margin-top: 90px;
+}
+</style>
+
+<script type="text/javascript">
+$(".main-container").removeClass("main-container").removeClass("container-fluid").addClass("footerPushDown");
+</script>
+
+
+<div id="pageContent" class="standardPadding">
+  <div class="articleBandContent">
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">R Markdown Quick Tour</h1>
+
+</div>
+
+
+<style type="text/css">
+img {
+  margin-bottom: 15px;
+}
+</style>
+<div id="overview" class="section level3">
+<h3>Overview</h3>
+<iframe src="https://player.vimeo.com/video/177254549?color=428bca&amp;title=0&amp;byline=0&amp;portrait=0" width="800" height="450" frameborder="0" style="margin-bottom: 2em;" webkitallowfullscreen mozallowfullscreen allowfullscreen>
+</iframe>
+<p><img src="images/RMarkdownFlow.png" /></p>
+<p>Creating documents with R Markdown starts with an .Rmd file that contains a combination of markdown (content with simple text formatting) and R code chunks. The .Rmd file is fed to <a href="http://yihui.name/knitr/">knitr</a>, which executes all of the R code chunks and creates a new markdown (.md) document which includes the R code and it’s output.</p>
+<p>The markdown file generated by knitr is then processed by <a href="http://pandoc.org/">pandoc</a> which is responsible for creating a finished web page, PDF, MS Word document, slide show, handout, book, dashboard, package vignette or other format.</p>
+<p>This may sound complicated, but R Markdown makes it extremely simple by encapsulating all of the above processing into a single <code>render</code> function. Better still, RStudio includes a “Knit” button that enables you to render an .Rmd and preview it using a single click or keyboard shortcut.</p>
+</div>
+<div id="installation" class="section level3">
+<h3>Installation</h3>
+<p>You can install the R Markdown package from CRAN as follows:</p>
+<pre class="r"><code>install.packages(&quot;rmarkdown&quot;)</code></pre>
+<p>You can open a new .Rmd file in the RStudio IDE by going to File &gt; New File &gt; R Markdown…</p>
+</div>
+<div id="markdown-basics" class="section level3">
+<h3>Markdown Basics</h3>
+<p>Markdown is a simple formatting language designed to make authoring content easy for everyone. Rather than write in complex markup code (e.g. HTML or LaTex), you write in plain text with formatting cues. Pandoc uses these cues to turn your document into attractive output. For example, the file on the left shows basic Markdown and the resulting output on the right:</p>
+<p><img src="images/quicktourExample.png" /></p>
+</div>
+<div id="r-code-chunks" class="section level3">
+<h3>R Code Chunks</h3>
+<p>Within an R Markdown file, R Code Chunks can be embedded with the native Markdown syntax for fenced code regions. For example, the following code chunk computes a data summary and renders a plot as a PNG image:</p>
+<p><img src="images/markdownChunk.png" /></p>
+</div>
+<div id="inline-r-code" class="section level3">
+<h3>Inline R Code</h3>
+<p>You can also evaluate R expressions inline by enclosing the expression within a single back-tick qualified with ‘r’. For example, the following code embeds R results as text in the output at right</p>
+<p><img src="images/quicktourInline.png" /></p>
+</div>
+<div id="rendering-output" class="section level3">
+<h3>Rendering Output</h3>
+<p>There are two ways to render an R Markdown document into it’s final output format. If you are using RStudio, then the “Knit” button (Ctrl+Shift+K) will render the document and display a preview of it.</p>
+<p>If you are not using RStudio then you simply need to call the <code>rmarkdown::render</code> function, for example:</p>
+<pre class="r"><code>rmarkdown::render(&quot;input.Rmd&quot;)</code></pre>
+<p>Note that both methods use the same mechanism; RStudio’s “Knit” button calls <code>rmarkdown::render()</code> under the hood.</p>
+</div>
+<div id="using-parameters" class="section level3">
+<h3>Using Parameters</h3>
+<p>R Markdown documents can contain a metadata section that includes title, author, and date information as well as options for customizing output. For example, this metadata included at the top of an .Rmd file adds a table of contents and chooses a different HTML theme:</p>
+<pre><code>---
+title: &quot;Sample Document&quot;
+output:
+  html_document:
+    toc: true
+    theme: united
+---</code></pre>
+<p>You can add a <code>params:</code> field to the metadata to provide a list of values for your document to use. R Markdown will make the list available as <code>params</code> within any R code chunk in the report. For example, the file below takes a filename as a parameter and uses the name to read in a data set.</p>
+<p><img src="images/quicktourParams.png" /></p>
+<p>Parameters let you quickly apply your data set to new data sets, models, and parameters. You can set new values for the parameters when you call <code>rmarkdown::render()</code>,</p>
+<pre class="r"><code>rmarkdown::render(&quot;input.Rmd&quot;, params = list())</code></pre>
+<p>as well as when you press the “Knit” button:</p>
+<p><img src="images/quicktourParamsButton.png" /></p>
+</div>
+<div id="output-formats" class="section level3">
+<h3>Output Formats</h3>
+<p><img align="middle" width = "300" src = "images/RMarkdownOutputFormats.png"></img></p>
+<p>You can create many types of output from a single .Rmd file. R Markdown has built in support for HTML, PDF, MS_Word, ODT, RTF, Markdown, and Github flavored Markdown documents; Beamer, slidy.js, ioslides, and reveal.js slideshows; and websites, dashboards, books, handouts, package vignettes, and Shiny apps. These formats can be specified in metadata, for example:</p>
+<pre><code>---
+title: &quot;Sample Document&quot;
+output: pdf_document
+---</code></pre>
+<p>And you can set sub-options to customize each formats:</p>
+<pre><code>---
+title: &quot;Sample Document&quot;
+output:
+  pdf_document:
+    toc: true
+    highlight: zenburn
+---</code></pre>
+<p>Multiple formats can be specified in metadata:</p>
+<pre><code>---
+title: &quot;Sample Document&quot;
+output:
+  html_document:
+    toc: true
+    theme: united
+  pdf_document:
+    toc: true
+    highlight: zenburn
+---</code></pre>
+<p>If you are using <code>rmarkdown::render</code> then you can pass a format name to <code>render</code> to select from the available formats. For example:</p>
+<pre class="r"><code>render(&quot;input.Rmd&quot;, &quot;pdf_document&quot;)</code></pre>
+<p>You can also render all formats defined in an input file with:</p>
+<pre class="r"><code>render(&quot;input.Rmd&quot;, &quot;all&quot;)</code></pre>
+</div>
+
+  </div> <!-- articleBandContent -->
+</div> <!-- pageContent -->
+
+<div id="rStudioFooter" class="band full">
+<div class="bandContent">
+  <div id="copyright">© Copyright 2016 - 2018 RStudio Inc.</div>
+  <div id="logos">
+    <a href="https://twitter.com/rstudio" class="footerLogo twitter"></a>
+    <a href="https://github.com/rstudio" class="footerLogo gitHub"></a>
+    <a href="https://www.linkedin.com/company/rstudio-inc" class="footerLogo linkedIn"></a>
+    <a href="https://www.facebook.com/pages/RStudio-Inc/267733656584415" Class="footerLogo facebook"></a>
+  </div>
+</div>
+</div>
+
+<!-- bizible -->
+<script type="text/javascript" src="//cdn.bizible.com/scripts/bizible.js" async=""></script>
+
+<!-- disqus -->
+<div id="disqus_thread" class="standardPadding"></div>
+<script type="text/javascript" src="js/disqus.js"></script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+<script type="text/javascript" src="js/external-links.js"></script>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Richard Morey" />
+
+<meta name="date" content="2014-09-12" />
+
+<title>Embedding RData files in R Markdown files for more reproducible analyses</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<meta name="description" content="Turn your analyses into high quality documents, reports, presentations and dashboards with R Markdown. Use a productive notebook interface to weave together narrative text and code to produce elegantly formatted output. Use multiple languages including R, Python, and SQL. R Markdown supports a reproducible workflow for dozens of static and dynamic output formats including HTML, PDF, MS Word, Beamer, HTML5 slides, Tufte-style handouts, books, dashboards, shiny applications, scientific articles, websites, and more." />
+
+<link rel="icon" type="image/png" href="images/favicon.png" />
+
+<script type="text/javascript" src="js/redirect.js"></script>
+<script type="text/javascript" src="js/rmarkdown.js"></script>
+<script type="text/javascript" src="js/ga.js"></script>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="css/rmarkdown.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div id="rStudioHeader" class="alwaysShrunk">
+  <div class="innards bandContent">
+    <div>
+      <a class="productName" href="index.html">R Markdown</a>
+      <div class="rStudio"><span class="light">from </span> <a href="https://www.rstudio.com/"><div class="logo"></div></a></div>
+    </div>
+
+    <div id="menu">
+      <div id="menuToggler"></div>
+      <div id="menuItems">
+        <a class="menuItem" href="lesson-1.html">Get Started</a>
+        <a class="menuItem" href="gallery.html">Gallery</a>
+        <a class="menuItem" href="formats.html">Formats</a>
+        <a class="menuItem" href="articles.html">Articles</a>
+        <a class="menuItem" href="https://bookdown.org/yihui/rmarkdown/">Book</a>
+        <a class="menuItem" href="docs/">References</a>
+        <a class="menuItem gitHub" href="https://github.com/rstudio/rmarkdown"></a>
+        <a class="menuItem gitHubText" href="https://github.com/rstudio/rmarkdown">Source on GitHub</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style type="text/css">
+#TOC {
+  margin-left: 35px;
+  margin-top: 90px;
+}
+</style>
+
+<script type="text/javascript">
+$(".main-container").removeClass("main-container").removeClass("container-fluid").addClass("footerPushDown");
+</script>
+
+
+<div id="pageContent" class="standardPadding">
+  <div class="articleBandContent">
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Embedding RData files in R Markdown files for more reproducible analyses</h1>
+<h4 class="author">Richard Morey</h4>
+<h4 class="date">September 12, 2014</h4>
+
+</div>
+
+
+<p><em>This article is reposted from <a href="http://bayesfactor.blogspot.com/2014/09/embedding-rdata-files-in-R%20Markdown.html">bayesfactor.blogspot.com</a> with the kind permission of Richard Morey.</em></p>
+<p>For those of us interested in reproducible analysis, <a href="/">R Markdown</a> is a great way of communicating our code to other researchers. <a href="http://www.rstudio.com/">RStudio</a>, in particular, makes it very easy to create attractive HTML document containing text, code, and figures, which can then be sent to colleagues or put on the internet for anyone to see. If you aren’t using R Markdown for your statistical analyses, I recommend you start; you’ll never go back to simple script files again (and your colleagues won’t want you to).</p>
+<p>In this post, I describe how to improve your R Markdown by embedding data that can be downloaded by anyone viewing the document in a modern browser with javascript enabled. For a quick look, see the <a href="http://drsmorey.org/Rmarkdown/download_RData.Rmd">example Rmd file</a> and <a href="http://drsmorey.org/Rmarkdown/download_RData.html">resulting HTML file</a>.</p>
+<p>One of the drawbacks of Rmakdown, from a reproducible analysis perspective, is that the data is not a part of the document itself. Typically, an R Markdown file will use R code to load a file from your disk, and when you send the resulting HTML file to a colleague, or put it on the internet, that file is separate. It must be sent in an email or placed on a server to be downloaded.</p>
+<p>This raises the possibility that the data could get separated from the code, and I think this is a terrible thing for reproducible analysis. In my mind, the data and the document and data should travel together as a single document. What we would like is a method of encoding R data into the HTML file such that any user who has access to the HTML file can download it, without even having access to the internet.</p>
+<p>As it turns out, files can be encoded in an HTML document via the <a href="http://en.wikipedia.org/wiki/Data_URI_scheme">URI data scheme</a>. All we need is an R function that encodes the data, and produces a link to enable downloading the data.</p>
+<pre class="r"><code>setDownloadURI = function(list, filename = stop(&quot;&#39;filename&#39; must be specified&quot;), textHTML = &quot;Click here to download the data.&quot;, fileext = &quot;RData&quot;, envir = parent.frame()){
+  require(base64enc,quietly = TRUE)
+  divname = paste(sample(LETTERS),collapse=&quot;&quot;)
+  tf = tempfile(pattern=filename, fileext = fileext)
+  save(list = list, file = tf, envir = envir)
+  filenameWithExt = paste(filename,fileext,sep=&quot;.&quot;)
+ 
+  uri = dataURI(file = tf, mime = &quot;application/octet-stream&quot;, encoding = &quot;base64&quot;)
+  cat(&quot;&lt;a style=&#39;text-decoration: none&#39; id=&#39;&quot;,divname,&quot;&#39;&gt;&lt;/a&gt;
+    &lt;script&gt;
+    var a = document.createElement(&#39;a&#39;);
+    var div = document.getElementById(&#39;&quot;,divname,&quot;&#39;);
+    div.appendChild(a);
+    a.setAttribute(&#39;href&#39;, &#39;&quot;,uri,&quot;&#39;);
+    a.innerHTML = &#39;&quot;,textHTML,&quot;&#39; + &#39; (&quot;,filenameWithExt,&quot;)&#39;;
+    if (typeof a.download != &#39;undefined&#39;) {
+      a.setAttribute(&#39;download&#39;, &#39;&quot;,filenameWithExt,&quot;&#39;);
+    }else{
+      a.setAttribute(&#39;onclick&#39;, &#39;confirm(\&quot;Your browser does not support the download HTML5 attribute. You must rename the file to &quot;,filenameWithExt,&quot; after downloading it (or use Chrome/Firefox/Opera). \&quot;)&#39;);
+    }
+    &lt;/script&gt;&quot;,
+    sep=&quot;&quot;)
+}</code></pre>
+<p>The first argument of the function, list, is a character vector containing names of variables to save in the RData file.</p>
+<p>Once this function is declared, all we need to do is call it in our Rmd file. If we use the argument results = ‘asis’ in our R code block, it will inject the appropriate HTML code into our compiled HTML document to allow a download of the embedded data as an RData file, and anyone with the HTML file can download it.</p>
+<p>Unfortunately, blogger will not allow me to embed the data into a post; therefore, a complete, self-contained example Rmd file can be found <a href="http://drsmorey.org/Rmarkdown/download_RData.Rmd">here</a>, and the resulting HTML file can be found <a href="http://drsmorey.org/Rmarkdown/download_RData.html">here</a>.</p>
+<p>Keep in mind, however, that the data file is actually embedded in the HTML file. This means that the resulting HTML file can be very large, if your data file is large. Also consider that data are encoded in base64, which increases the size of the file by about a third over the equivalent RData binary file. For very large data sets, one might consider hosting them outside of the HTML file; but for many purposes, the technique I describe will improve the ease with which you can share reproducible analyses.</p>
+<p><em>Note: Richard has included a slightly cleaned up version of this functionality as <code>createDownloadURI()</code> in the <a href="https://github.com/richarddmorey/BayesFactorExtras/">BayesFactorExtras</a> package, which can be installed on github.</em></p>
+
+  </div> <!-- articleBandContent -->
+</div> <!-- pageContent -->
+
+<div id="rStudioFooter" class="band full">
+<div class="bandContent">
+  <div id="copyright">© Copyright 2016 - 2018 RStudio Inc.</div>
+  <div id="logos">
+    <a href="https://twitter.com/rstudio" class="footerLogo twitter"></a>
+    <a href="https://github.com/rstudio" class="footerLogo gitHub"></a>
+    <a href="https://www.linkedin.com/company/rstudio-inc" class="footerLogo linkedIn"></a>
+    <a href="https://www.facebook.com/pages/RStudio-Inc/267733656584415" Class="footerLogo facebook"></a>
+  </div>
+</div>
+</div>
+
+<!-- bizible -->
+<script type="text/javascript" src="//cdn.bizible.com/scripts/bizible.js" async=""></script>
+
+<!-- disqus -->
+<div id="disqus_thread" class="standardPadding"></div>
+<script type="text/javascript" src="js/disqus.js"></script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+<script type="text/javascript" src="js/external-links.js"></script>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+
+</body>
+</html>

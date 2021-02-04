@@ -1,0 +1,2 @@
+"0","cities <- rename(cities, place = source)"
+"0","head(cities, n = 2)"
